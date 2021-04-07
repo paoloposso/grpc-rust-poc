@@ -1,0 +1,19 @@
+[package]
+name = "grpc_server"
+version = "0.1.0"
+authors = ["Paolo Posso <pvictorsys@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+prost = "0.7.0"
+tonic = {version="0.4.1",features = ["tls"]}
+tokio = {version="1.4.0",features = ["full"]}
+futures = "0.3"
+tokio-stream = "*"
+
+[build-dependencies]
+tonic-build = "0.4.1"
+
+[[bin]]
+name = "server"
+path = "src/server.rs"
