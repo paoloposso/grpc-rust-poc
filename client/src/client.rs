@@ -1,8 +1,8 @@
-use hello::say_client::SayClient;
-use hello::SayRequest;
+use greet::greet_client::GreetClient;
+use greet::GreetRequest;
 
-mod hello {
-    tonic::include_proto!("hello");
+mod greet {
+    tonic::include_proto!("greet");
 }
 
 #[tokio::main]
@@ -11,10 +11,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     .connect()
     .await?;
     
-    let mut client = SayClient::new(channel);
+    let mut client = GreetClient::new(channel);
 
     let request = tonic::Request::new(
-        SayRequest {
+        GreetRequest {
            name:String::from("Paolo")
         },
     );

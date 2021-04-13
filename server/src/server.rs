@@ -1,17 +1,17 @@
 use tonic::{transport::Server, Request, Response, Status};
-use hello::say_server::{Say, SayServer};
-use hello::{SayResponse, SayRequest};
+use greet::greet_server::{Greet, GreetServer};
+use greet::{GreetResponse, GreetRequest};
 
-mod hello {
-    tonic::include_proto!("hello");
+mod greet {
+    tonic::include_proto!("greet");
 }
 #[derive(Default)]
-pub struct MySay {}
+pub struct MyGreet {}
 
 #[tonic::async_trait]
-impl Say for MySay {
-    async fn send(&self,request:Request<SayRequest>)->Result<Response<SayResponse>,Status>{
-        Ok(Response::new(SayResponse{
+impl Greet for MyGreet{
+    async fn send(&self,request:Request<GreetRequest>)->Result<Response<GreetResponse>,Status>{
+        Ok(Response::new(GreetResponse{
              message:format!("hello {}",request.get_ref().name),
         }))
     }
@@ -20,11 +20,11 @@ impl Say for MySay {
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let addr = "[::1]:50051".parse().unwrap();
-    let say = MySay::default();
+    let say = MyGreet::default();
     println!("Server listening on {}", addr);
     
     Server::builder()
-        .add_service(SayServer::new(say))
+        .add_service(GreetServer::new(say))
         .serve(addr)
         .await?;
     Ok(())
