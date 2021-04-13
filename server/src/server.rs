@@ -12,7 +12,7 @@ pub struct MyGreet {}
 impl Greet for MyGreet{
     async fn send(&self,request:Request<GreetRequest>)->Result<Response<GreetResponse>,Status>{
         Ok(Response::new(GreetResponse{
-             message:format!("hello {}",request.get_ref().name),
+             message:format!("hey {}!",request.get_ref().name),
         }))
     }
 }
